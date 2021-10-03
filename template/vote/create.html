@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1>투표 생성</h1>
+    <form method="POST" enctype="multipart/form-data"> <!--다이너리같은거 전송할땐 enctype ~~ 해야함-->
+        {% csrf_token %}
+        <div class="mb-3 mt-4">
+            <label for="exampleInputEmail1" class="form-label">Topic 주제</label>
+            <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Writer</label>
+            <input type="text" disabled value="{{user.username}}" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Comment</label>
+            <textarea class="form-control" name="comment"></textarea>
+        </div>
+
+        <button type="button" class="btn btn-success" onclick="create()">보기생성</button>
+
+        <hr>
+        <div id="here">
+        
+        </div>
+        
+        <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-primary">Topic 생성</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function create(){
+        div = document.getElementById("here")
+        p = document.createElement("p")
+        p.innerHTML = '<div class="mb-3 mt-4"><label for="exampleInputEmail1" class="form-label">보기이름</label><input type="text" name="subject" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></div> <div class="mb-5 mt-4"><label for="exampleInputEmail1" class="form-label">보기사진</label><input type="file" name="pic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></div><hr>'
+        div.appendChild(p)
+    }
+</script>
+
+
+{% endblock %}

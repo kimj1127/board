@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load mathfilters %}
+
+
+<div class="container mt-5 mb-5">
+
+    <div class="row">
+        <div class="col-lg-9">
+            <h1>{{ con.title }}</h1>
+            <textarea disabled class="form-control">{{ con.comment }}</textarea>
+        </div>
+
+        <div class="col-lg-3 text-center">
+            <img src="{{ con.writer_pic.url }}" height="150px">
+            <div class="mt-3">
+                <h4>작성자 {{con.writer}}</h4>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <form method="POST" action="{% url 'vote:vote' con.id %}">
+        {% csrf_token %}
+        <div class="mt-5 row text-center">
+        {% for i in cho %}
+            <div class="col-lg-3">
+                {% if not user in con.voter.all %}
+                    <input class="form-check-input" {% if forloop.first %}checked{% endif %} type="radio" name="subject" value={{i.id}}>
+                {% endif %}   
+                <img src="{{i.pic.url}}" height="180px">
+                <div class="mt-3">
+                    <h5>{{i.subject}}</h5>
+                </div>
+                {% if user in con.voter.all %}
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ i.choicer.all.count|div:con.voter.all.count|mul:100}}%">{{ i.choicer.all.count|div:con.voter.all.count|mul:100}} %</div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+        <div class="text-end">
+            {% if not user in con.voter.all %}
+                <button class="btn btn-dark">투표하기</button>
+            {% endif %}
+            <a href="{% url 'vote:index' %}"><button type="button" class="btn btn-primary">HOME</button></a>
+        </div>
+    </form>
+
+</div>
+
+
+{% endblock %}

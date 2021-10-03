@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1>[게시판]글쓰기</h1>
+    <form method="POST" enctype="multipart/form-data"> <!--다이너리같은거 전송할땐 enctype ~~ 해야함-->
+        {% csrf_token %}
+        <div class="mb-3 mt-4">
+            <label for="exampleInputEmail1" class="form-label">Subject</label>
+            <input type="text" name="subject" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Writer</label>
+            <input type="text" disabled value="{{user.username}}" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Content</label>
+            <textarea class="form-control" name="content"></textarea>
+        </div>
+        <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-success">글쓰기</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

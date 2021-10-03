@@ -1,0 +1,23 @@
+.{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 mb-3">
+    <div class="mt-3 mb-3">
+        <h4>Subject</h4><input type="text" value="{{ con.subject }}" class="form-control" disabled>
+    </div>
+    <div class="mt-3 mb-3">
+        <h4>Writer</h4><input type="text" value="{{ con.writer }}" class="form-control" disabled>
+    </div>
+    <div class="mt-3 mb-3">
+        <h4>Content</h4><textarea class="form-control" disabled>{{ con.content }}</textarea>
+    </div>
+
+    <div class="text-end">
+        <a href="{% url 'board:index' %}"><button class="btn btn-primary">HOME</button></a>
+        <a href="{% url 'board:vote' con.id %}"><button class="btn btn-success">UP</button></a>
+    </div>
+
+    {{ con.up.all.count }}
+
+</div>
+
+{% endblock %}
